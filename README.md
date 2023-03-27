@@ -5,7 +5,7 @@
 * Visual Studio Code
 
 ## 실행
-* node_modules 폴더가 없으면 `npm i` 또는 `npm install` 필요
+* `npm i` 또는 `npm install` 필요 (node_modules 폴더가 없는 경우)
 * TERMINAL에서 `node main.js`로 서버 실행 후 웹 브라우저에서 http://localhost:8081 로 접속
 
 ## 2023-03-13 (2주차)
