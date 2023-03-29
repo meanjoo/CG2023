@@ -2,6 +2,7 @@
 2023-1학기 컴퓨터 그래픽스 (code from: https://github.com/youngjinDAU/DAU-CG23-LAB)
 
 ## 환경
+* Node.js
 * Visual Studio Code
 
 ## 실행
@@ -11,8 +12,11 @@
 ## 2023-03-13 (2주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230313.js`로 변경 후 서버 실행)
 
+[실습 내용]
+
+:dash: 두 선분이 교차하는 지점에 빨간 점 찍기
+
 ### Line-Line Intersection
-**: 두 선분이 교차하는 지점에 빨간 점 찍기**
 
 선분은 양쪽에 끝나는 점이 있는, 직선의 부분이다.
   
@@ -63,13 +67,43 @@ $min(x_1, x_2) \leq x_i \leq max(x_1, x_2)$ && $min(y_1, y_2) \leq y_i \leq max(
 
 $min(x_1, x_2) \gt x_i$ || $max(x_1, x_2) \lt x_i$ || $min(y_1, y_2) \gt y_i$ || $max(y_1, y_2) \lt y_i$이면 교점이 선분 위에 위치하지 않는다.
 
-선분 1의 양끝점을 `p0`, `p1`, 선분 2의 양끝점을 `p2`, `p3`라고 할 때, 두 선분의 교점이 선분 위에 존재하는지 판단하는 코드는 다음과 같다.
+선분 1의 양끝점을 `p0`, `p1`, 선분 2의 양끝점을 `p2`, `p3`, 교점을 (`intersectionX`, `intersectionY`)라고 할 때,  
+두 선분의 교점이 선분 위에 존재하는지 판단하는 코드는 다음과 같다.
 
 ```javascript
+if (Math.min(p0.x, p1.x) > intersectionX || Math.max(p0.x, p1.x) < intersectionX)
+  return false
+if (Math.min(p2.x, p3.x) > intersectionX || Math.max(p2.x, p3.x) < intersectionX)
+  return false
+if (Math.min(p0.y, p1.y) > intersectionY || Math.max(p0.y, p1.y) < intersectionY)
+  return false
+if (Math.min(p2.y, p3.y) > intersectionY || Math.max(p2.y, p3.y) < intersectionY)
+  return false
+return true
 ```
+```javascript
+return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x, p1.x) &&
+        Math.min(p0.y, p1.y) <= intersectionY && intersectionY <= Math.max(p0.y, p1.y) &&
+        Math.min(p2.x, p3.x) <= intersectionX && intersectionX <= Math.max(p2.x, p3.x) &&
+        Math.min(p2.y, p3.y) <= intersectionY && intersectionY <= Math.max(p2.y, p3.y)
+        ? true
+        : false)        
+```
+
+**[교점이 선분 위에 위치하는지 판단하기 2]**
+
+선분의 시작점과 끝점으로 선분 교차 여부를 판별할 수도 있지만, CCW를 이용해서 선분 교차 여부를 판별할 수도 있다.
 
 ## 2023-03-20 (3주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230320.js`로 변경 후 서버 실행)
+
+[실습 내용]
+
+:dash: 선분과 직사각형이 교차하는 지점에 점 찍기
+
+:dash: 선분과 원이 교차하는 지점에 점 찍기
+
+:dash: 직사각형과 원이 교차하는 지점에 점 찍기
 
 ### Line, Box, Circle Intersections
 **: 교차 지점에 점 찍기**
@@ -83,8 +117,12 @@ $min(x_1, x_2) \gt x_i$ || $max(x_1, x_2) \lt x_i$ || $min(y_1, y_2) \gt y_i$ ||
 ## 2023-03-27 (4주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230327.js`로 변경 후 서버 실행)
 
+[실습 내용]
+
+:dash: 1개의 움직이는 직사각형이 고정된 5개의 직사각형과 충돌할 때 색칠하기  
+※ 단, 현재 실습 코드는 고정된 직사각형끼리는 충돌하지 않는 관계에 있다는 전제 하에 작성되었다. 만약 고정된 직사각형끼리 충돌하는 경우를 만든다면 조건을 추가해야 한다.
+
 ### Box-Box Collision
-**: 충돌 시 색칠하기**
 
 + 교수님 코드
   
