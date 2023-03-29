@@ -90,6 +90,10 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
         : false)        
 ```
 
+**[교점이 선분 위에 위치하는지 판단하기 2]**
+
+선분의 시작점과 끝점으로 선분 교차 여부를 판별할 수도 있지만, CCW를 이용해서 선분 교차 여부를 판별할 수도 있다.
+
 ## 2023-03-20 (3주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230320.js`로 변경 후 서버 실행)
 
