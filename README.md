@@ -11,8 +11,11 @@
 ## 2023-03-13 (2주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230313.js`로 변경 후 서버 실행)
 
+[실습 내용]
+
+:dash: 두 선분이 교차하는 지점에 빨간 점 찍기
+
 ### Line-Line Intersection
-**: 두 선분이 교차하는 지점에 빨간 점 찍기**
 
 선분은 양쪽에 끝나는 점이 있는, 직선의 부분이다.
   
@@ -89,6 +92,14 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 ## 2023-03-20 (3주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230320.js`로 변경 후 서버 실행)
 
+[실습 내용]
+
+:dash: 선분과 직사각형이 교차하는 지점에 점 찍기
+
+:dash: 선분과 원이 교차하는 지점에 점 찍기
+
+:dash: 직사각형과 원이 교차하는 지점에 점 찍기
+
 ### Line, Box, Circle Intersections
 **: 교차 지점에 점 찍기**
 
@@ -101,8 +112,12 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 ## 2023-03-27 (4주차)
 (main.js의 body 태그>script 태그의 src 속성값을 `./draw_230327.js`로 변경 후 서버 실행)
 
+[실습 내용]
+
+:dash: 1개의 움직이는 직사각형이 고정된 5개의 직사각형과 충돌할 때 색칠하기  
+※ 단, 현재 실습 코드는 고정된 직사각형끼리는 충돌하지 않는 관계에 있다는 전제 하에 작성되었다. 만약 고정된 직사각형끼리 충돌하는 경우를 만든다면 조건을 추가해야 한다.
+
 ### Box-Box Collision
-**: 충돌 시 색칠하기**
 
 + 교수님 코드
   
