@@ -1,5 +1,5 @@
 # CG2023
-2023-1학기 컴퓨터 그래픽스
+2023-1학기 컴퓨터 그래픽스 (code from: https://github.com/youngjinDAU/DAU-CG23-LAB)
 
 ## 환경
 * Visual Studio Code
