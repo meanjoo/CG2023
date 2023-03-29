@@ -250,6 +250,8 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 :smiley_cat: 방향키를 통해 빨간색 직사각형을 움직일 수 있다.
 
+<img src="https://github.com/meanjoo/LinkPicture/blob/main/boxboxcollisionEx.jpg" width="500" height=auto />
+
 ### Box-Box Collision
 
 + 교수님 코드
