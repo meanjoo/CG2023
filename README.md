@@ -253,11 +253,40 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 <img src="https://github.com/meanjoo/LinkPicture/blob/main/boxboxcollisionEx.jpg" width="500" height=auto />
 
 ### Box-Box Collision
+`box_box_collision(pMin, pMax, qMin, qMax)`  
+= pMin: 직사각형 1의 시작점(왼쪽 위)  
+= pMax: 직사각형 1의 끝점(오른쪽 아래)  
+= qMin: 직사각형 2의 시작점(왼쪽 위)  
+= qMax: 직사각형 2의 끝점(오른쪽 아래)
+
++ 내 접근
+
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/myboxboxcollision.jpg" width="800" height=auto />
+  
+  위와 같은 방법으로 두 직사각형의 충돌을 알아낼 수 있다고 생각했다.
+  
+  직사각형의 시작점과 끝점을 알면 직사각형의 너비 $w$와 높이 $h$는 알아낼 수 있다.  
+  $w=boxMaxPt.x-boxMinPt.x$  
+  $h=boxMaxPt.y-boxMinPt.y$
+  
+  $distx$와 $disty$를 알기 위해서는 두 직사각형의 최대최소 x좌표와 최대최소 y좌표를 알아야한다.
+  
+  ```
+  maxx = max(boxMinPt1.x, boxMaxPt1.x, boxMinPt2.x, boxMaxPt2.x)
+  minx = min(boxMinPt1.x, boxMaxPt1.x, boxMinPt2.x, boxMaxPt2.x)
+  maxy = max(boxMinPt1.y, boxMaxPt1.y, boxMinPt2.y, boxMaxPt2.y)
+  miny = min(boxMinPt1.y, boxMaxPt1.y, boxMinPt2.y, boxMaxPt2.y)
+  
+  distx = maxx - minx
+  disty = maxy - miny
+  ```
+
+  `distx <= w1 + w2 && disty <= h1 + h2`가 참이면 두 직사각형은 충돌한 상태이고, 그렇지 않으면 충돌하지 않은 상태이다.
 
 + 교수님 코드
   
-   ```javascript
-   if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
-     return true
-   return false
-   ```
+```javascript
+if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
+  return true
+return false
+```
