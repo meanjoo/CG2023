@@ -26,3 +26,10 @@
 ## 2023-03-27 (4주차)
 
 * Box-Box Collision
+
+  + 교수님 코드  
+  ```javascript
+  if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
+    return true
+  return false
+  ```
