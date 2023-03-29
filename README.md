@@ -10,7 +10,7 @@
 * TERMINAL에서 `node main.js`로 서버 실행 후 웹 브라우저에서 http://localhost:8081 로 접속
 
 ## 2023-03-13 (2주차)
-(main.js의 body 태그>script 태그의 src 속성값을 `./draw_230313.js`로 변경 후 서버 실행)
+(index.html의 body 태그>script 태그의 src 속성값을 `./js/draw_230313.js`로 변경 후 서버 실행)
 
 [실습 내용]
 
@@ -95,7 +95,7 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 선분의 시작점과 끝점으로 선분 교차 여부를 판별할 수도 있지만, CCW를 이용해서 선분 교차 여부를 판별할 수도 있다.
 
 ## 2023-03-20 (3주차)
-(main.js의 body 태그>script 태그의 src 속성값을 `./draw_230320.js`로 변경 후 서버 실행)
+(index.html의 body 태그>script 태그의 src 속성값을 `./js/draw_230320.js`로 변경 후 서버 실행)
 
 [실습 내용]
 
@@ -115,7 +115,7 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 * ### Box-Circle Intersection
 
 ## 2023-03-27 (4주차)
-(main.js의 body 태그>script 태그의 src 속성값을 `./draw_230327.js`로 변경 후 서버 실행)
+(index.html의 body 태그>script 태그의 src 속성값을 `./js/draw_230327.js`로 변경 후 서버 실행)
 
 [실습 내용]
 
