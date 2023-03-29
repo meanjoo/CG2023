@@ -105,10 +105,41 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 :dash: 직사각형과 원이 교차하는 지점에 점 찍기
 
-### Line, Box, Circle Intersections
-**: 교차 지점에 점 찍기**
+:smiley_cat: 원이 하나 존재하는데 방향키를 통해 이 원을 움직일 수 있다.
 
+### Line, Box, Circle Intersections
 * ### Line-Box Intersection
+  직사각형 하나를 x축에 평행한 선분 2개와 y축에 평행한 선분 2개로 나누어서 생각할 수 있다.
+  
+  그럼 line-box intersection 문제가 line-line intersection 문제로 변하게 된다.
+  
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/linebox.jpg" width="400" height=auto />
+  
+  직사각형과 교차하고 있는지 체크할 선분의 직선의 방정식을 $l_0: y=a_0x+b_0$ 이라고 하자.  
+  이를 $x$에 관해 풀면 $x=(y-b_0) \div a_0$ 이다.  
+  (해당 실습 코드는 이 선분이 y축과 평행하지 않다는 전제 하에 작성되었다. 이러한 경우도 체크하려면 조건을 추가해야 한다.)
+  
+  선분 ①의 직선의 방정식은 $l_1: y=boxMinPt.y$ 이다.  
+  직선 $l_1$과 직선 $l_0$의 교점을 $P_1(x_1, y_1)$ 이라고 하면, $y_1=boxMinPt.y$ 이고, $x_1=(y_1-b_0) \div a_0$ 이다.  
+  $P_1(x_1, y_1)=((boxMinPt.y-b_0) \div a_0, boxMinPt.y)$
+  
+  선분 ②의 직선의 방정식은 $l_2: x=boxMinPt.x$ 이다.  
+  직선 $l_2$와 직선 $l_0$의 교점을 $P_2(x_2, y_2)$ 라고 하면, $x_2=boxMinPt.x$ 이고, $y_2=a_0x_2+b_0$ 이다.  
+  $P_2(x_2, y_2)=(boxMinPt.x, a_0 \times boxMinPt.x+b_0)$
+  
+  선분 ③의 직선의 방정식은 $l_3: x=boxMaxPt.x$ 이다.  
+  직선 $l_3$와 직선 $l_0$의 교점을 $P_3(x_3, y_3)$ 라고 하면, $x_3=boxMaxPt.x$ 이고, $y_3=a_0x_3+b_0$ 이다.  
+  $P_3(x_3, y_3)=(boxMaxPt.x, a_0 \times boxMaxPt.x+b_0)$
+  
+  선분 ④의 직선의 방정식은 $l_4: y=boxMaxPt.y$ 이다.  
+  직선 $l_4$와 직선 $l_0$의 교점을 $P_4(x_4, y_4)$ 라고 하면, $y_4=boxMaxPt.y$ 이고, $x_4=(y_4-b_0) \div a_0$ 이다.  
+  $P_4(x_4, y_4)=((boxMaxPt.y-b_0) \div a_0, boxMaxPt.y)$
+  
+  이렇게 두 직선의 교점을 구했으면 이 교점이 선분 위에 있는지 확인해주면 된다.  
+  (만약 line_line_intersection() 함수에서 y축에 평행한 선분이 있을 때를 처리했다면  
+  &nbsp;line_box_intersection()에서 선분의 양끝점과 직사각형의 양끝점을 인자로 하여 line_line_intersection() 함수를 4번만 호출하면 되지만,  
+  &nbsp;해당 코드는 이 경우를 처리하지 않아서 이 안에서 직선끼리의 교점을 구한 뒤 교점이 선분 위에 위치하는지 체크하고 있다.)  
+  :heavy_check_mark:*기회가 된다면 line_line_intersection() 함수를 수정해보자.*
   
 * ### Line-Circle Intersection
   
@@ -121,6 +152,8 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 :dash: 1개의 움직이는 직사각형이 고정된 5개의 직사각형과 충돌할 때 색칠하기  
 ※ 단, 현재 실습 코드는 고정된 직사각형끼리는 충돌하지 않는 관계에 있다는 전제 하에 작성되었다. 만약 고정된 직사각형끼리 충돌하는 경우를 만든다면 조건을 추가해야 한다.
+
+:smiley_cat: 방향키를 통해 빨간색 직사각형을 움직일 수 있다.
 
 ### Box-Box Collision
 
