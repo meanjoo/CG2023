@@ -63,9 +63,27 @@ $min(x_1, x_2) \leq x_i \leq max(x_1, x_2)$ && $min(y_1, y_2) \leq y_i \leq max(
 
 $min(x_1, x_2) \gt x_i$ || $max(x_1, x_2) \lt x_i$ || $min(y_1, y_2) \gt y_i$ || $max(y_1, y_2) \lt y_i$이면 교점이 선분 위에 위치하지 않는다.
 
-선분 1의 양끝점을 `p0`, `p1`, 선분 2의 양끝점을 `p2`, `p3`라고 할 때, 두 선분의 교점이 선분 위에 존재하는지 판단하는 코드는 다음과 같다.
+선분 1의 양끝점을 `p0`, `p1`, 선분 2의 양끝점을 `p2`, `p3`, 교점을 (`intersectionX`, `intersectionY`)라고 할 때,  
+두 선분의 교점이 선분 위에 존재하는지 판단하는 코드는 다음과 같다.
 
 ```javascript
+if (Math.min(p0.x, p1.x) > intersectionX || Math.max(p0.x, p1.x) < intersectionX)
+  return false
+if (Math.min(p2.x, p3.x) > intersectionX || Math.max(p2.x, p3.x) < intersectionX)
+  return false
+if (Math.min(p0.y, p1.y) > intersectionY || Math.max(p0.y, p1.y) < intersectionY)
+  return false
+if (Math.min(p2.y, p3.y) > intersectionY || Math.max(p2.y, p3.y) < intersectionY)
+  return false
+return true
+```
+```javascript
+return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x, p1.x) &&
+        Math.min(p0.y, p1.y) <= intersectionY && intersectionY <= Math.max(p0.y, p1.y) &&
+        Math.min(p2.x, p3.x) <= intersectionX && intersectionX <= Math.max(p2.x, p3.x) &&
+        Math.min(p2.y, p3.y) <= intersectionY && intersectionY <= Math.max(p2.y, p3.y)
+        ? true
+        : false)        
 ```
 
 ## 2023-03-20 (3주차)
