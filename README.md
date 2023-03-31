@@ -250,7 +250,7 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 :smiley_cat: 방향키를 통해 빨간색 직사각형을 움직일 수 있다.
 
-<img src="https://github.com/meanjoo/LinkPicture/blob/main/boxboxcollisionEx.jpg" width="500" height=auto />
+<img src="https://github.com/meanjoo/LinkPicture/blob/main/boxboxcollisionEx.PNG" />
 
 ### Box-Box Collision
 `box_box_collision(pMin, pMax, qMin, qMax)`  
@@ -261,7 +261,7 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 + 내 접근
 
-  <img src="https://github.com/meanjoo/LinkPicture/blob/main/myboxboxcollision.jpg" width="800" height=auto />
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/myBoxBoxCollision.jpg" width="800" height=auto />
   
   위와 같은 방법으로 두 직사각형의 충돌을 알아낼 수 있다고 생각했다.
   
