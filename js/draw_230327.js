@@ -15,7 +15,7 @@ boxPts.push(new THREE.Vector2(350, 350));
 
 // 4 5: yellow - fixed
 boxPts.push(new THREE.Vector2(70, 70));
-boxPts.push(new THREE.Vector2(170, 100));
+boxPts.push(new THREE.Vector2(200, 130));
 
 // 6 7: blue - fixed
 boxPts.push(new THREE.Vector2(400, 30));
@@ -69,7 +69,7 @@ function draw_image() {
   // ctx.fillStyle = "red"
   // draw_box(boxPts[2], boxPts[3], isFill)
 
-  for (let i=1; i<=5; i++)
+  for (let i=1; i<=5; i++) // fixed된 box의 개수만큼 반복
     check_state_and_draw(boxPts[0], boxPts[1], colors[0], boxPts[i*2], boxPts[i*2+1], colors[i])
 }
 
@@ -85,7 +85,7 @@ function box_box_collision(pMin, pMax, qMin, qMax) {
   let minx = Math.min(pMin.x, pMax.x, qMin.x, qMax.x)
   let miny = Math.min(pMin.y, pMax.y, qMin.y, qMax.y)
 
-  if (maxx - minx <= pw + qw && maxy - miny <= ph + qh)
+  if (maxx - minx < pw + qw && maxy - miny < ph + qh)
     return true
   return false
 
