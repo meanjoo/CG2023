@@ -263,13 +263,15 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
   <img src="https://github.com/meanjoo/LinkPicture/blob/main/myBoxBoxCollision.jpg" width="800" height=auto />
   
-  위와 같은 방법으로 두 직사각형의 충돌을 알아낼 수 있다고 생각했다.
+  위와 같은 생각에서 두 직사각형의 충돌을 알아낼 수 있다고 생각했다.
+  
+  `distx < w1 + w2`와 `disty < h1 + h2`를 모두 만족하면 두 직사각형이 충돌한 상태이고, 그렇지 않으면 충돌하지 않은 상태이다.
   
   직사각형의 시작점과 끝점을 알면 직사각형의 너비 $w$와 높이 $h$는 알아낼 수 있다.  
   $w=boxMaxPt.x-boxMinPt.x$  
   $h=boxMaxPt.y-boxMinPt.y$
   
-  $distx$와 $disty$를 알기 위해서는 두 직사각형의 최대최소 x좌표와 최대최소 y좌표를 알아야한다.
+  $distx$와 $disty$를 알기 위해서는 두 직사각형의 최대최소 x좌표와 최대최소 y좌표를 알아야 한다.
   
   ```
   maxx = max(boxMinPt1.x, boxMaxPt1.x, boxMinPt2.x, boxMaxPt2.x)
@@ -281,12 +283,15 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
   disty = maxy - miny
   ```
 
-  `distx <= w1 + w2 && disty <= h1 + h2`가 참이면 두 직사각형은 충돌한 상태이고, 그렇지 않으면 충돌하지 않은 상태이다.
+  `distx < w1 + w2 && disty < h1 + h2`가 참이면 두 직사각형은 충돌한 상태이고, 그렇지 않으면 충돌하지 않은 상태이다.
 
-+ 교수님 코드
-  
-```javascript
-if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
-  return true
-return false
-```
++ 교수님 코드  
+  ```
+  if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
+    return true
+  return false
+  ```
+
+:tomato: 두 코드 모두 현재 테두리끼리의 충돌은 충돌하지 않은 상태라고 판단하게 되어 있다.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 조건에 등호(=)를 추가하면 테두리끼리 충돌했을 때도 충돌로 판정할 수 있다.
+
