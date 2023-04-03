@@ -337,3 +337,38 @@ mousePt.distanceTo(center of circle) <= r ? true : false
 ```
 
 ### Triangle
+점이 삼각형 내부에 있는지 외부에 있는지 알아내는 방법은 몇 가지가 있다.  
+1. 삼각형과 점을 이용하여 삼각형 3개를 만든 후 원래 삼각형의 넓이와 비교하는 방법
+2. 
+
+*(canvas 관련)*  
+[Applying styles and colors](https://developer.mozilla.org/ko/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)  
+[Drawing Shapes](https://developer.mozilla.org/ko/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes)
+
+strokeStyle 또는 fillStyle 속성을 설정하면, 새로 설정된 값이 앞으로 그려질 도형의 기본 값이 된다. 각 도형에 다른 색을 적용하려면 fillStyle 또는 strokeStyle 속성을 다시 적용해야 한다. 속성을 다시 설정해주지 않으면 다른 도형이 칠해질 때 속성이 바뀌면서 원하는 색이 아닌 다른 색이 나올 수 있다.
+
+path는 점들의 집합이며 서로 연결하여 경로를 만듦으로써 도형을 그릴 수 있다. 경로가 만들어졌으면 경로를 렌더링하기 위해 윤곽선을 그리거나 내부를 채울 수 있다.  
+.stroke(): path의 윤곽선을 그린다.  
+.fill(): path의 내부를 채운다.
+
+
+* **삼각형과 점을 이용하여 삼각형 3개를 만든 후 원래 삼각형의 넓이와 비교하는 방법**
+
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/triangle1.PNG" width="700" height=auto/>
+
+  그림의 왼쪽은 삼각형 내부에 점이 위치한 경우, 오른쪽은 삼각형 외부에 점이 위치한 경우이다.  
+  점 $A$가 삼각형 $P_0P_1P_2$ 내부에 있으면 $△P_0P_1A+△P_1P_2A+△P_2P_0A=△P_0P_1P_2$ 임을 이용한다.
+
+  삼각형 세 점의 좌표를 알 때 삼각형의 넓이는 신발끈 공식을 통해 쉽게 계산할 수 있다.  
+  신발끈 공식은 $\div 2$ 연산이 들어가는데 값이 같은지 비교할 때 실수형이 되면 오차가 발생할 수 있으므로  
+  정수형으로 계산하기 위해 양변에 $\times 2$ 를 해준다.
+
+  따라서 $2△P_0P_1A+2△P_1P_2A+2△P_2P_0A=2△P_0P_1P_2$ 를 만족하면 점 $A$는 삼각형 $P_0P_1P_2$ 내부에 있는 것이다.
+
+  ```
+  getTriAreaX2(p0, p1, p2) -> p0.x*p1.y + p1.x*p2.y + p2.x*p0.y - p1.x*p0.y - p2.x*p1.y - p0.x*p2.y
+  
+  getTriAreaX2(p0, p1, A) + getTriAreaX2(p1, p2, A) + getTriAreaX2(p2, p0, A) == getTriAreaX2(p0, p1, p2)
+  ? true
+  : false
+  ```
