@@ -20,11 +20,37 @@ function draw_line(p0, p1) {
     ctx.stroke();
 }
 
-function draw_triangle(triData)
-{
-    draw_line(triData.pt0,triData.pt1);
-    draw_line(triData.pt1,triData.pt2);
-    draw_line(triData.pt2,triData.pt0);
+function triangleAreaX2(tri) {
+    return Math.abs(tri.pt0.x*tri.pt1.y + tri.pt1.x*tri.pt2.y + tri.pt2.x*tri.pt0.y
+                    - tri.pt1.x*tri.pt0.y - tri.pt2.x*tri.pt1.y - tri.pt0.x*tri.pt2.y)
+}
+
+function draw_triangle(triData) {
+    ctx.strokeStyle = "black"
+    ctx.fillStyle = "black"
+
+    ctx.beginPath()
+    ctx.moveTo(triData.pt0.x, triData.pt0.y)
+    ctx.lineTo(triData.pt1.x, triData.pt1.y)
+    ctx.lineTo(triData.pt2.x, triData.pt2.y)
+    ctx.closePath()
+
+    let mousePt = new THREE.Vector2(mouseX, mouseY)
+    let isFill = false
+
+    if (triangleAreaX2({pt0: triData.pt0, pt1: triData.pt1, pt2: mousePt})
+        + triangleAreaX2({pt0: triData.pt1, pt1: triData.pt2, pt2: mousePt})
+        + triangleAreaX2({pt0: triData.pt2, pt1: triData.pt0, pt2: mousePt})
+        == triangleAreaX2(triData)) {
+            isFill = true
+    }
+
+    if (isFill) {
+        ctx.fill()
+    }
+    else {
+        ctx.stroke()
+    }
 }
 
 function draw_box(boxData) {
@@ -38,7 +64,6 @@ function draw_box(boxData) {
     ctx.rect(boxData.minPt.x, boxData.minPt.y, boxData.maxPt.x - boxData.minPt.x, boxData.maxPt.y - boxData.minPt.y);
     if (isFill) {
         ctx.fillStyle = "red"
-        ctx.strokeStyle = "red"
         ctx.fill();
     }
     else {
@@ -50,9 +75,14 @@ function draw_box(boxData) {
 function draw_circle(circleData) {
     let isFill=false;
     //Mouse Check
+    // 방법 1
     if ((mouseX - circleData.ctr.x)*(mouseX - circleData.ctr.x) + (mouseY - circleData.ctr.y)*(mouseY - circleData.ctr.y) <= circleData.radius * circleData.radius)
         isFill = true
-    // 점과 점 사이의 거리 구해서 반지름 거리랑 비교해도 가능
+
+    // 방법 2
+    // let mousePt = new THREE.Vector2(mouseX, mouseY)
+    // if (mousePt.distanceTo(circleData.ctr) <= circleData.radius)
+    //     isFill = true
     
     ctx.beginPath();
     ctx.arc(circleData.ctr.x, circleData.ctr.y, circleData.radius, 0, 2 * Math.PI);
