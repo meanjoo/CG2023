@@ -6,7 +6,6 @@
 * Visual Studio Code
 
 ## 실행
-* `npm i` 또는 `npm install` 필요 (node_modules 폴더가 없는 경우)
 * TERMINAL에서 `node main.js`로 서버 실행 후 웹 브라우저에서 http://localhost:8081 로 접속
 
 ## 2023-03-13 (2주차)
@@ -90,9 +89,12 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
         : false)        
 ```
 
-**[교점이 선분 위에 위치하는지 판단하기 2]**
+**[plus: 선분 교차 판단 알고리즘]**
 
-선분의 시작점과 끝점으로 선분 교차 여부를 판별할 수도 있지만, CCW를 이용해서 선분 교차 여부를 판별할 수도 있다.
+위 방법으로 두 선분의 교점 및 교차 여부를 판단할 수도 있지만, 교차 여부를 다른 방법으로 판단할 수도 있다.  
+교점을 구하는 방법은 같아도 교차 여부를 CCW를 이용해서 판단할 수 있다.  
+선분이 교차하고 있을 때는 두 직선의 교점이 곧 선분의 교점이고, 교차하지 않고 있을 때는 교점이 없다.
+
 
 ## 2023-03-20 (3주차)
 (index.html의 body 태그>script 태그의 src 속성값을 `./js/draw_230320.js`로 변경 후 서버 실행)
@@ -109,6 +111,12 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 ### Line, Box, Circle Intersections
 * ### Line-Box Intersection
+  `line_box_intersection(lineP0, lineP1, boxMinPt, boxMaxPt)`  
+  = lineP0: 선분의 시작점  
+  = lineP1: 선분의 끝점  
+  = boxMinPt: 직사각형의 시작점(왼쪽 위)  
+  = boxMaxPt: 직사각형의 끝점(오른쪽 아래)
+  
   직사각형 하나를 x축에 평행한 선분 2개와 y축에 평행한 선분 2개로 나누어서 생각할 수 있다.
   
   그럼 line-box intersection 문제가 line-line intersection 문제로 변하게 된다.
@@ -135,15 +143,102 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
   직선 $l_4$와 직선 $l_0$의 교점을 $P_4(x_4, y_4)$ 라고 하면, $y_4=boxMaxPt.y$ 이고, $x_4=(y_4-b_0) \div a_0$ 이다.  
   $P_4(x_4, y_4)=((boxMaxPt.y-b_0) \div a_0, boxMaxPt.y)$
   
-  이렇게 두 직선의 교점을 구했으면 이 교점이 선분 위에 있는지 확인해주면 된다.  
+  이렇게 두 직선의 교점을 구했으면 이 교점이 선분 위에 있는지 체크하고 점을 찍을지 말지 결정한다.  
   (만약 line_line_intersection() 함수에서 y축에 평행한 선분이 있을 때를 처리했다면  
   &nbsp;line_box_intersection()에서 선분의 양끝점과 직사각형의 양끝점을 인자로 하여 line_line_intersection() 함수를 4번만 호출하면 되지만,  
   &nbsp;해당 코드는 이 경우를 처리하지 않아서 이 안에서 직선끼리의 교점을 구한 뒤 교점이 선분 위에 위치하는지 체크하고 있다.)  
   :heavy_check_mark:*기회가 된다면 line_line_intersection() 함수를 수정해보자.*
   
 * ### Line-Circle Intersection
+  `line_circle_intersection(lineP0, lineP1, circleCtr, circleRadius)`  
+  = lineP0: 선분의 시작점  
+  = lineP1: 선분의 끝점  
+  = circleCtr: 원의 중심  
+  = circleRadius: 원의 반지름
+  
+  **[y축과 평행하지 않은 선분과 원]**
+  
+  선분의 직선의 방정식을 $l: y=a_0x+b_0$ 라고 하자.
+  
+  원의 중심이 $(a, b)$이고 반지름이 $r$인 원의 방정식은 $(x-a)^2+(y-b)^2=r^2$ 이다.
+  
+  두 식을 연립하여 식을 얻은 후 근의 공식을 사용하여 원과 직선의 교점을 알 수 있다.
+  
+  $(x-a)^2+(y-b)^2=r^2$
+  
+  $x^2-2ax+a^2+y^2-2by+b^2-r^2=0$
+  
+  $x^2-2ax+a^2+(a_0x+b_0)^2-2b(a_0x+b_0)+b^2-r^2=0$&nbsp;&nbsp;&nbsp;&nbsp;(직선의 방정식 대입)
+  
+  $x^2-2ax+a^2+a_0^2x^2+2a_0b_0x+b_0^2-2a_0bx-2bb_0+b^2-r^2=0$
+  
+  $(1+a_0^2)x^2+2(a_0b_0-a-a_0b)x+a^2+b_0^2-2bb_0+b^2-r^2=0$
+  
+  $x$에 관한 이차방정식의 형태가 되었다. 판별식을 통해서 원과 직선의 교점 개수를 알 수 있다.  
+  $D\gt0$이면 교점이 2개, $D=0$이면 교점이 1개, $D\lt0$이면 교점이 없다.
+  
+  이차방정식 $ax^2+bx+c=0$ $(a\neq0)$ 의 판별식은 $D=b^2-4ac$ 이다.  
+  이차방정식이 $ax^2+2b'x+c=0$ $(a\neq0)$ 꼴이면 짝수 판별식을 사용할 수 있고, 짝수 판별식은 $D/4=b'^2-ac$ 이다.
+  
+  우리가 정리한 식은 $ax^2+2b'x+c=0$ $(a\neq0)$ 꼴에 해당하므로 짝수 판별식을 이용하자.  
+  식이 복잡하므로 $A=1+a_0^2$, $B=a_0b_0-a-a_0b$, $C=a^2+b_0^2-2bb_0+b^2-r^2$ 로 두고 식을 $Ax^2+2Bx+C=0$ 라 하자.
+  
+  짝수 판별식 $D/4=B^2-AC$ 가 0보다 작으면 원과 직선은 교점이 없다.  
+  $D/4$가 0 이상이면 원과 직선은 교점을 최소 하나는 가진다는 말이다.  
+  교점은 근의 공식을 사용해서 구한다. 짝수 판별식을 이용했으므로 마찬가지로 짝수 근의 공식을 사용하자.
+  
+  이차방정식 $ax^2+bx+c=0$ $(a\neq0)$ 의 근 - 근의 공식: $x=(-b\pm\sqrt{b^2-4ac})\div 2a$  
+  이차방정식 $ax^2+2b'x+c=0$ $(a\neq0)$ 의 근 - 짝수 근의 공식: $x=(-b'\pm\sqrt{b'^2-ac})\div a$
+  
+  원과 직선의 교점 $(x_1, y_1)$  
+  $x_1=(-B+\sqrt{B^2-AC})/A=(-B+\sqrt{D/4})/A$  
+  $y_1=a_0x_1+b_0$  
+  $D/4$가 0이면 교점은 $(x_1, y_1)$ 하나이고, 0보다 크면 교점을 하나 더 갖는다.
+  
+  원과 직선의 교점2 $(x_2, y_2)$  
+  $x_2=(-B-\sqrt{B^2-AC})/A=(-B-\sqrt{D/4})/A$  
+  $y_2=a_0x_2+b_0$
+  
+  교점을 구했으면 이 교점이 선분 위에 있는지 체크하고 점을 찍을지 말지 결정한다.
+  
+  **[y축과 평행한 선분과 원]**
+  
+  선분이 y축에 평행할 때는 직선의 방정식이 $x=a$ 꼴로 $y=a_0x+b_0$와 형태가 다르다.  
+  따라서 선분이 y축에 평행한 경우에는 살짝 다르게 처리해줘야 한다.
+  
+  직선의 기울기인 $a_0$가 정의되지 않는 경우(분모=0)에는 다음과 같이 교점을 구할 수 있다.  
+  이 때는 선분의 양 끝점이 $P(x_1, y_1)$, $Q(x_2, y_2)$일 때, $x_1 == x_2$ 이므로 직선의 방정식은 $x=x_1=x_2$ 이다.  
+  이 차이 빼고 나머지 과정은 [y축과 평행하지 않은 선분과 원]에서 했던 과정과 같다.
+  
+  $(x-a)^2+(y-b)^2=r^2$
+  
+  $(x_1-a)^2+(y-b)^2-r^2=0$&nbsp;&nbsp;&nbsp;&nbsp;(직선의 방정식 대입)
+  
+  $(x_1-a)^2+y^2-2by+b^2-r^2=0$
+  
+  $y^2-2by+(x_1-a)^2+b^2-r^2=0$
+  
+  $y$에 관한 이차방정식이 되었고, 짝수 판별식을 통해 교점의 개수를 구하고 교점을 구한다.  
+  식의 상수항이 복잡하므로 $\alpha=(x_1-a)^2+b^2-r^2$ 로 두고 식을 $y^2-2by+\alpha=0$ 라 하자.
+  
+  $D/4=b^2-\alpha$  
+  교점1: $(x_1, b+\sqrt{b^2-C}=b+\sqrt{D/4})$ ($D/4 \geq 0$일 때 존재)  
+  교점2: $(x_1, b-\sqrt{b^2-C}=b-\sqrt{D/4})$ ($D/4 \gt 0$일 때 존재)
+  
+  이후 마찬가지로 교점이 선분 위에 있는지 체크하고 점을 찍을지 말지 결정한다.
   
 * ### Box-Circle Intersection
+  `line_circle_intersection(boxMinPt, boxMaxPt, circleCtr, circleRadius)`  
+  = boxMinPt: 직사각형의 시작점(왼쪽 위)  
+  = boxMaxPt: 직사각형의 끝점(오른쪽 아래)  
+  = circleCtr: 원의 중심  
+  = circleRadius: 원의 반지름
+  
+  Line-Box Intersection에서 했던 것처럼 직사각형을 4개의 선분으로 나누어서 본다.
+  
+  그럼 Box-Circle Intersection 문제가 Line-Circle Intersection 문제가 된다.
+  
+  4개의 선분과 원에 대해서 `line_circle_intersection()` 함수를 총 4번 호출해주면 된다.
 
 ## 2023-03-27 (4주차)
 (index.html의 body 태그>script 태그의 src 속성값을 `./js/draw_230327.js`로 변경 후 서버 실행)
@@ -155,12 +250,48 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 :smiley_cat: 방향키를 통해 빨간색 직사각형을 움직일 수 있다.
 
-### Box-Box Collision
+<img src="https://github.com/meanjoo/LinkPicture/blob/main/boxboxcollisionEx.PNG" />
 
-+ 교수님 코드
+### Box-Box Collision
+`box_box_collision(pMin, pMax, qMin, qMax)`  
+= pMin: 직사각형 1의 시작점(왼쪽 위)  
+= pMax: 직사각형 1의 끝점(오른쪽 아래)  
+= qMin: 직사각형 2의 시작점(왼쪽 위)  
+= qMax: 직사각형 2의 끝점(오른쪽 아래)
+
++ 내 접근
+
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/myBoxBoxCollision.jpg" width="800" height=auto />
   
-   ```javascript
-   if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
-     return true
-   return false
-   ```
+  위와 같은 생각에서 두 직사각형의 충돌을 알아낼 수 있다고 생각했다.
+  
+  `distx < w1 + w2`와 `disty < h1 + h2`를 모두 만족하면 두 직사각형이 충돌한 상태이고, 그렇지 않으면 충돌하지 않은 상태이다.
+  
+  직사각형의 시작점과 끝점을 알면 직사각형의 너비 $w$와 높이 $h$는 알아낼 수 있다.  
+  $w=boxMaxPt.x-boxMinPt.x$  
+  $h=boxMaxPt.y-boxMinPt.y$
+  
+  $distx$와 $disty$를 알기 위해서는 두 직사각형의 최대최소 x좌표와 최대최소 y좌표를 알아야 한다.
+  
+  ```
+  maxx = max(boxMinPt1.x, boxMaxPt1.x, boxMinPt2.x, boxMaxPt2.x)
+  minx = min(boxMinPt1.x, boxMaxPt1.x, boxMinPt2.x, boxMaxPt2.x)
+  maxy = max(boxMinPt1.y, boxMaxPt1.y, boxMinPt2.y, boxMaxPt2.y)
+  miny = min(boxMinPt1.y, boxMaxPt1.y, boxMinPt2.y, boxMaxPt2.y)
+  
+  distx = maxx - minx
+  disty = maxy - miny
+  ```
+
+  `distx < w1 + w2 && disty < h1 + h2`가 참이면 두 직사각형은 충돌한 상태이고, 그렇지 않으면 충돌하지 않은 상태이다.
+
++ 교수님 코드  
+  ```
+  if (pMin.x < qMax.x && pMax.x  > qMin.x && pMin.y < qMax.y && pMax.y > qMin.y)
+    return true
+  return false
+  ```
+
+:tomato: 두 코드 모두 현재 테두리끼리의 충돌은 충돌하지 않은 상태라고 판단하게 되어 있다.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 조건에 등호(=)를 추가하면 테두리끼리 충돌했을 때도 충돌로 판정할 수 있다.
+
