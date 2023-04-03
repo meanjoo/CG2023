@@ -295,3 +295,45 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 :tomato: 두 코드 모두 현재 테두리끼리의 충돌은 충돌하지 않은 상태라고 판단하게 되어 있다.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 조건에 등호(=)를 추가하면 테두리끼리 충돌했을 때도 충돌로 판정할 수 있다.
 
+
+## 2023-04-03 (5주차)
+(index.html의 body 태그>script 태그의 src 속성값을 `./js/draw_230403.js`로 변경 후 서버 실행)
+
+[실습 내용]
+
+:dash: 박스를 그리고, 마우스가 박스 내부에 있으면 박스를 채우는 `draw_box()` 함수 작성하기
+
+:dash: 원을 그리고, 마우스가 원 내부에 있으면 원을 채우는 `draw_circle()` 함수 작성하기
+
+:dash: 삼각형을 그리고, 마우스가 삼각형 내부에 있으면 삼각형을 채우는 `draw_triangle()` 함수 작성하기
+
+이전 주차까지는 도형을 점으로 나타냈는데, 이번 실습 코드에서는 도형을 객체로 만든다.
+
+### Box
+마우스가 박스 내부에 있는지 판단하는 방법은 간단하다. 좌표를 비교해주기만 하면 된다.
+```javascript
+boxMinPt.x <= mouseX && mouseX <= boxMaxPt.x && boxMinPt.y <= mouseY && mouseY <= boxMaxPt.y ? true : false
+```
+
+### Circle
+마우스가 원 내부에 있는지 판단하는 방법은 두 점 사이의 거리를 이용하거나 원의 방정식을 이용할 수 있는데 이 둘은 식이 같다.  
+마우스의 좌표를 $(m_x, m_y)$, 원의 중심을 $(a, b)$, 원의 반지름 길이를 $r$이라고 하자.
+
+두 점 $(x_1, y_1), (x_2, y_2)$ 사이의 거리는 $\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$ 이다.  
+$(x_1, y_1)=(m_x, m_y), (x_2, y_2)=(a, b)$ 라고 하면 두 점 사이의 거리는 $\sqrt{(m_x-a)^2+(m_y-b)^2}$ 이고, 원의 내부이면 이 값이 $r$ 이하이다.  
+즉 $\sqrt{(m_x-a)^2+(m_y-b)^2}<=r$ 이면 원의 내부이고,  
+정수형으로 비교하기 위해 양변에 제곱을 취해주면 $(m_x-a)^2+(m_y-b)^2<=r^2$ 일 때 마우스는 원의 내부에 있다.
+
+원의 방정식은 $(x-a)^2+(y-b)^2=r^2$ 이다.  
+마우스가 원의 내부에 있다면 $(m_x-a)^2+(m_y-b)^2<=r^2$ 를 만족한다.
+```javascript
+(mouseX - a)*(mouseX - a) + (mouseY - b)*(mouseY - b) <= r*r ? true : false
+```
+
+또는 [three.js의 Vector2](https://threejs.org/docs/#api/en/math/Vector2)에서 제공하는 메서드를 이용할 수 있다.  
+우리는 Vector2로 점을 나타냈는데 여기에는 현재 벡터와 v 벡터의 거리를 계산해주는 `.distanceTo(v)` 메서드가 있다.
+```javascript
+mousePt.distanceTo(center of circle) <= r ? true : false
+```
+
+### Triangle
