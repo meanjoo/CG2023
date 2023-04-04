@@ -339,7 +339,7 @@ mousePt.distanceTo(center of circle) <= r ? true : false
 ### Triangle
 점이 삼각형 내부에 있는지 외부에 있는지 알아내는 방법은 몇 가지가 있다.  
 1. 삼각형과 점을 이용하여 삼각형 3개를 만든 후 원래 삼각형의 넓이와 비교하는 방법
-2. 
+2. 벡터 외적을 활용하는 방법: CCW
 
 *(canvas 관련)*  
 [Applying styles and colors](https://developer.mozilla.org/ko/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)  
@@ -372,3 +372,6 @@ path는 점들의 집합이며 서로 연결하여 경로를 만듦으로써 도
   ? true
   : false
   ```
+* **벡터 외적을 활용하는 방법: CCW**
+
+  
