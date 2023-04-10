@@ -309,13 +309,13 @@ return (Math.min(p0.x, p1.x) <= intersectionX && intersectionX <= Math.max(p0.x,
 
 이전 주차까지는 도형을 점으로 나타냈는데, 이번 실습 코드에서는 도형을 객체로 만든다.
 
-### Box
+### Point in Box
 마우스가 박스 내부에 있는지 판단하는 방법은 간단하다. 좌표를 비교해주기만 하면 된다.
 ```javascript
 boxMinPt.x <= mouseX && mouseX <= boxMaxPt.x && boxMinPt.y <= mouseY && mouseY <= boxMaxPt.y ? true : false
 ```
 
-### Circle
+### Point in Circle
 마우스가 원 내부에 있는지 판단하는 방법은 두 점 사이의 거리를 이용하거나 원의 방정식을 이용할 수 있는데 이 둘은 식이 같다.  
 마우스의 좌표를 $(m_x, m_y)$, 원의 중심을 $(a, b)$, 원의 반지름 길이를 $r$이라고 하자.
 
@@ -336,10 +336,10 @@ $(x_1, y_1)=(m_x, m_y), (x_2, y_2)=(a, b)$ 라고 하면 두 점 사이의 거�
 mousePt.distanceTo(center of circle) <= r ? true : false
 ```
 
-### Triangle
+### Point in Triangle
 점이 삼각형 내부에 있는지 외부에 있는지 알아내는 방법은 몇 가지가 있다.  
 1. 삼각형과 점을 이용하여 삼각형 3개를 만든 후 원래 삼각형의 넓이와 비교하는 방법
-2. 
+2. 벡터 외적을 활용하는 방법: CCW
 
 *(canvas 관련)*  
 [Applying styles and colors](https://developer.mozilla.org/ko/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)  
@@ -372,3 +372,24 @@ path는 점들의 집합이며 서로 연결하여 경로를 만듦으로써 도
   ? true
   : false
   ```
+* **벡터 외적을 활용하는 방법: CCW**
+
+  CCW 알고리즘을 통해서 세 개의 점이 어떤 위치 관계에 있는지 알아낼 수 있다.
+  
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/pointInTriangle2_1.png" width="700" height=auto/>
+  
+  삼각형 $\bigtriangleup ABC$ 각 변의 양 끝 두 점(꼭지점)과 점 $P$의 위치 관계를 살펴보자.  
+  점 $P$가 삼각형의 내부에 있다면 세 점이 이루는 방향이 모두 같아 외적의 부호가 전부 같다.  
+  점 $P$가 삼각형의 외부에 있다면 세 점이 이루는 방향이 모두 같지 않아 외적의 부호가 전부 같지는 않다.
+  
+  CCW 알고리즘에서 중요한 것은 점의 배치 순서이다. 크게 두 가지 순서가 있다.  
+  ① 꼭지점 → 다음 꼭지점 → 점  
+  ② 꼭지점 → 점 → 다음 꼭지점
+  
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/pointInTriangle2_2.png" width="700" height=auto/>
+  
+  하나의 삼각형에 대해서 어떤 점의 내외부 판단을 할 때는 반드시 점의 배치 순서가 동일해야 한다.  
+  점의 배치 순서를 동일하게 하여 CCW 알고리즘을 적용해야 올바른 결과를 얻는다.  
+  만약 점의 배치 순서를 혼용해서 쓰게 되면 아래처럼 잘못된 결과를 얻을 수 있다.
+  
+  <img src="https://github.com/meanjoo/LinkPicture/blob/main/pointInTriangle2_3.png" width="700" height=auto/>
