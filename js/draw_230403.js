@@ -20,6 +20,10 @@ function draw_line(p0, p1) {
     ctx.stroke();
 }
 
+function ccw(p1, p2, p3) {
+    return p1.x*p2.y + p2.x*p3.y + p3.x*p1.y - p2.x*p1.y - p3.x*p2.y - p1.x*p3.y
+}
+
 function triangleAreaX2(tri) {
     return Math.abs(tri.pt0.x*tri.pt1.y + tri.pt1.x*tri.pt2.y + tri.pt2.x*tri.pt0.y
                     - tri.pt1.x*tri.pt0.y - tri.pt2.x*tri.pt1.y - tri.pt0.x*tri.pt2.y)
@@ -38,12 +42,19 @@ function draw_triangle(triData) {
     let mousePt = new THREE.Vector2(mouseX, mouseY)
     let isFill = false
 
+    // 방법 1
     if (triangleAreaX2({pt0: triData.pt0, pt1: triData.pt1, pt2: mousePt})
         + triangleAreaX2({pt0: triData.pt1, pt1: triData.pt2, pt2: mousePt})
         + triangleAreaX2({pt0: triData.pt2, pt1: triData.pt0, pt2: mousePt})
         == triangleAreaX2(triData)) {
             isFill = true
     }
+
+    // 방법 2
+    // if ((ccw(triData.pt0, triData.pt1, mousePt) > 0 && ccw(triData.pt1, triData.pt2, mousePt) > 0 && ccw(triData.pt2, triData.pt0, mousePt) > 0) ||
+    //     (ccw(triData.pt0, triData.pt1, mousePt) < 0 && ccw(triData.pt1, triData.pt2, mousePt) < 0 && ccw(triData.pt2, triData.pt0, mousePt) < 0)) {
+    //         isFill = true
+    // }
 
     if (isFill) {
         ctx.fill()
