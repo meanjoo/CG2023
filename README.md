@@ -16,3 +16,5 @@
 * [2023-03-27(4주차)](https://github.com/meanjoo/CG2023/blob/main/notes/20230327.md) Box-Box Collision
 
 * [2023-04-03(5주차)](https://github.com/meanjoo/CG2023/blob/main/notes/20230403.md) Point in Box, Point in Circle, Point in Triangle
+
+* [2023-04-17(7주차)](https://github.com/meanjoo/CG2023/blob/main/notes/20230417.md) Bezier Curve Interaction
