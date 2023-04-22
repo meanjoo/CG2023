@@ -15,7 +15,7 @@
 
 * 2023-03-27(4주차) Box-Box Collision [내용](https://github.com/meanjoo/CG2023/blob/main/notes/20230327.md) [코드](https://github.com/meanjoo/CG2023/blob/main/js/draw_230327.js)
 
-* 2023-04-03(5주차) Point in Box, Point in Circle, Point in Triangle [내용](https://github.com/meanjoo/CG2023/blob/main/notes/20230403.md) [코드](https://github.com/meanjoo/CG2023/blob/main/js/draw_230403.js)
+* 2023-04-03(5주차) Mouse Interaction - Point in Box, Point in Circle, Point in Triangle [내용](https://github.com/meanjoo/CG2023/blob/main/notes/20230403.md) [코드](https://github.com/meanjoo/CG2023/blob/main/js/draw_230403.js)
 
 * 2023-04-17(7주차) Bezier Curve Interaction [내용](https://github.com/meanjoo/CG2023/blob/main/notes/20230417.md) [코드](https://github.com/meanjoo/CG2023/blob/main/js/draw_230417.js)
 
