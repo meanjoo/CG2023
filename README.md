@@ -19,3 +19,4 @@
 
 * 2023-04-17(7주차) Bezier Curve Interaction [내용](https://github.com/meanjoo/CG2023/blob/main/notes/20230417.md) [코드](https://github.com/meanjoo/CG2023/blob/main/js/draw_230417.js)
 
+* 2023-05-08(10주차) 3D Primitive Visualization [내용](https://github.com/meanjoo/CG2023/blob/main/notes/20230508.md)
