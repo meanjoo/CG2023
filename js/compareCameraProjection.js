@@ -17,7 +17,7 @@ function setCamera(orthographic) {
 }
 
 function initRenderer() {
-    camera.position.z = 4
+    camera.position.z = 4 // (0,0,4)에서 (0,0,0)을 바라보고, up vector가 (0,1,0)인 카메라로 설정
     renderer.setClearColor("#000000")
     renderer.setSize(500, 500)
     // Append Renderer to DOM
