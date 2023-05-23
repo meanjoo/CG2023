@@ -6,12 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        canvas{border:1px solid;}
+        /* canvas{border:1px solid;} */
+        /* 20230522 */
+        canvas{border:1px solid; width: 500px; height: 500px}
+        body{margin:0;}
     </style>
     <script src="js/three.js"></script>
     <!-- 아래 두 줄 0515 -->
+    <!-- <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script> -->
+    <!-- 20230522 -->
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- <script src="https://unpkg.com/three@0.128.0/helpers/SpotLightHelper.js"></script>  --> <!-- 얜 없어도 되는 줄-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.3/dat.gui.min.js"></script>
 </head>
 <body>
     <h1>DAU - Computer Graphics 2023</h1>
@@ -23,7 +31,7 @@
 
     <!-- width, height 단위: pixel -->
     <!-- <canvas id="myCanvas" width="500" height="500"></canvas> --> <!-- 3D 실행 시 주석처리-->
-    <script src="./js/draw_230515.js"></script>
+    <script src="./js/draw_230522.js"></script>
 </body>
 </html>
 
