@@ -66,17 +66,26 @@ function init() {
   console.log(scene)
 }
 
+var rotateSpeedY = 0.05
 // Render Loop: 4번 여기서 해라
 var render = function () {
   requestAnimationFrame(render)
-  index++
 
-  // children[0]이 빛(광원)이다.
-  scene.children[0].position.set(
-    10 * Math.cos(Math.PI * index / 100.0),
-    0,
-    10 * Math.sin(Math.PI * index / 100.0)
-  )
+  // children[0]이 빛(광원)이다. - 4번
+  // index++
+  // scene.children[0].position.set(
+  //   10 * Math.cos(Math.PI * index / 100.0),
+  //   0,
+  //   10 * Math.sin(Math.PI * index / 100.0)
+  // )
+
+  // y축 중심으로 회전 - 5번
+  scene.children[2].rotation.y += rotateSpeedY // 이 한 줄 또는 rotateY() 한 줄
+  // +=를 -=로 바꾸면 반대 방향(=시계 방향)으로 회전한다. += 일 때는 반시계로 회전
+  // scene.children[2].rotation.y -= rotateSpeedY
+  // scene.children[2].rotateY(rotateSpeedY)
+  // scene.children[2].rotateY(rotateSpeedY * -1)
+
   controls.update()
   renderer.render(scene, camera)
 };
