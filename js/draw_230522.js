@@ -219,9 +219,7 @@ function initGUI() {
   redSpotFolder.add(redSpotLight.position, "y", -7.0, 7.0)
   redSpotFolder.add(redSpotLight.position, "z", 1.0, 10.0)
 
-  const blueSpotFolder = gui.addFolder("Spot Light BLUE")
-  blueSpotFolder.add(blueSpotLight, "angle", 0, Math.PI * 0.5)
-
+  gui.add(blueSpotLight, "angle", 0, Math.PI * 0.5).name("Spot Light BLUE")
 }
 
 function init() {
